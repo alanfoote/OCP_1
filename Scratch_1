@@ -1,0 +1,25 @@
+
+
+from geopy import geocoders
+import pandas as pd
+
+col_list = ["Address1", "Address2"]
+df = pd.read_csv("IRS_Address_for_Py.csv", usecols=col_list)
+
+
+#data = df.drop(['Unnamed:'], axis=1)
+
+#df.head(25)
+
+def geo(df):
+    g = geocoders.Nominatim(user_agent="afoote")
+    loc = g.geocode(df)
+    if loc is not None:
+        return loc.latitude, loc.longitude
+    else:
+        print("Who goes there?")
+        return None, None
+
+    
+result = geo(df)
+print(result)
